@@ -33,7 +33,7 @@ public class LabseqService {
 			return new BigInteger(cachedValue.get());
 		}
 
-		BigInteger newValue = calculate(index - 4).add(calculate(index - 3));
+		BigInteger newValue = calculateRecursive(index - 4).add(calculateRecursive(index - 3));
 		redisService.setValue(key, newValue.toString());
 
 		return newValue;
