@@ -1,0 +1,29 @@
+services:
+  redis:
+    image: redis:8
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  labseq:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: labseq
+    ports:
+      - "8080:8080"
+    environment:
+      - QUARKUS_REDIS_HOSTS=redis://redis:6379
+    depends_on:
+      - redis
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: labseq-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - labseq
