@@ -1,0 +1,20 @@
+<div class="form-card">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="index">Enter a positive number:</label>
+    <input
+      type="number"
+      id="index"
+      formControlName="index"
+      min="0"
+      required
+    />
+    <div *ngIf="form.controls['index'].invalid && form.controls['index'].touched">
+      Only positive numbers are allowed.
+    </div>
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+  </form>
+
+  <div class="result-container">
+    <span class="result-label">Result: </span><div *ngIf="loading()" class="loader"></div> <span *ngIf="result !== null" class="result-number">{{ result() }}</span> 
+  </div>
+</div>
